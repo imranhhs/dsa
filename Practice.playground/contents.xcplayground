@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<playground version='6.0' target-platform='ios'>
+    <pages>
+        <page name='Basic Programs'/>
+        <page name='Basic Sorting Algorithms'/>
+        <page name='Advance Sorting Algorithms'/>
+        <page name='Recursion Programs'/>
+        <page name='Fibonacci'/>
+    </pages>
+</playground>
