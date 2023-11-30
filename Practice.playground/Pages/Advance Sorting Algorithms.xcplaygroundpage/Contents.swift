@@ -5,6 +5,8 @@ import Foundation
 enum PivotPosition {
     case left
     case right
+    case midean
+    //case random   //Pending
 }
 
 var swapCount = 0
@@ -17,16 +19,26 @@ func quickSort(array: inout [Int], left: Int, right: Int, pivotPosition: PivotPo
     //Terminating Condition
     if left >= right { return }
     
-    var pivot = array[left]   //Left Pivot
+    var pivot = array[left] //Default //Not recomended
+    let median = (left + right) / 2
 
-    if pivotPosition == .right { pivot = array[right] }   //Right Pivot
-    //print("pivot = \(pivot)")
+    switch pivotPosition {
+    case .left:
+        pivot = array[left]
+    case .right:
+        pivot = array[right]
+    case .midean:
+        pivot = array[median]
+    }
+
+    print("pivot = \(pivot)")
     
     var i = left, j = right
 
     while i < j {
         
-        if pivotPosition == .left {
+        switch pivotPosition {
+        case .left:
             if isAscending {
                 while i <= right && array[i] <= pivot { i = i + 1 }     //I = Left Marker
                 while j >= left && array[j] > pivot { j = j - 1 }       //J = Right Marker
@@ -34,7 +46,17 @@ func quickSort(array: inout [Int], left: Int, right: Int, pivotPosition: PivotPo
                 while i <= right && array[i] >= pivot { i = i + 1 }     //I = Left Marker
                 while j >= left && array[j] < pivot { j = j - 1 }       //J = Right Marker
             }
-        } else {
+        case .midean:
+            if isAscending {
+                while i <= right && array[i] <= pivot { i = i + 1 }     //I = Left Marker
+                while j >= left && array[j] > pivot { j = j - 1 }       //J = Right Marker
+            } else {    //Descending Order
+                //ToDo: Not working
+                while i <= right && array[i] >= pivot { i = i + 1 }     //I = Left Marker
+                while j >= left && array[j] < pivot { j = j - 1 }       //J = Right Marker
+            }
+            
+        case .right:
             if isAscending {
                 while i <= right && array[i] < pivot { i = i + 1 }      //I = Left Marker
                 while j >= left && array[j] >= pivot { j = j - 1 }      //J = Right Marker
@@ -47,14 +69,24 @@ func quickSort(array: inout [Int], left: Int, right: Int, pivotPosition: PivotPo
         if i < j { array.swapAt(i, j); swapCount += 1 }
     }
 
-    if pivotPosition == .left {
+    switch pivotPosition {
+    case .left:
         array.swapAt(left, j)
         swapCount += 1
         print("Itr \(array)")
         
         quickSort(array: &array, left: left, right: j-1)    //Recursive Call - LEFT Partition
         quickSort(array: &array, left: j+1, right: right)   //Recursive Call - RIGHT Partition
-    } else {
+    
+    case .midean:
+        array.swapAt(median, j)
+        swapCount += 1
+        print("Itr \(array)")
+
+        quickSort(array: &array, left: left, right: j-1)    //Recursive Call - LEFT Partition
+        quickSort(array: &array, left: j+1, right: right)   //Recursive Call - RIGHT Partition
+        
+    case .right:
         array.swapAt(right, i)
         swapCount += 1
         print("Itr \(array)")
@@ -64,13 +96,13 @@ func quickSort(array: inout [Int], left: Int, right: Int, pivotPosition: PivotPo
     }
 }
 
-//print("Quick Sort")
-//swapCount = 0
-//var array = [66,33,99,11,77,22,55,44,88]
-//print("Unsorted Array: ", array)
-//quickSort(array: &array, left: 0, right: array.count-1)
-//print("Sorted Array  : ", array)
-//print("Swap Count = \(swapCount)")
+print("Quick Sort")
+swapCount = 0
+var array = [66,33,99,11,77,22,55,44,88]
+print("Unsorted Array: ", array)
+quickSort(array: &array, left: 0, right: array.count-1)
+print("Sorted Array  : ", array)
+print("Swap Count = \(swapCount)")
 //##########################################################################################################################
 
 
@@ -126,11 +158,11 @@ func mergeSort(array: inout [Int], left: Int, right: Int) {
     print("Itr:", array)
 }
 
-print("Merge Sort")
-var array = [66,33,99,11,77,22,88,44,55]
-print("Unsorted Array: ", array)
-mergeSort(array: &array, left: 0, right: array.count-1)
-print("Sorted Array  : ", array)
+//print("Merge Sort")
+//var array = [66,33,99,11,77,22,88,44,55]
+//print("Unsorted Array: ", array)
+//mergeSort(array: &array, left: 0, right: array.count-1)
+//print("Sorted Array  : ", array)
 //##########################################################################################################################
 
 //: [Next](@next)
