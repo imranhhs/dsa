@@ -143,3 +143,29 @@ binarySearch(array: array, key: key)
 //twoDArray()
 
 //##########################################################################################################################
+
+func reverseDigits(number: Int) -> Int {
+    
+    var num = number
+    var rev_num = 0
+
+    while (num > 0) {
+        rev_num = rev_num * 10 + num % 10;
+        //print("rev_num = \(rev_num)")
+        num = num / 10
+    }
+    
+    return rev_num;
+}
+
+let number = 12345
+var reverseNumber = reverseDigits(number: number)
+print("Reverse Number of \(number) is \(reverseNumber)")
+
+func isPalindrome(number: Int) -> Bool {
+    return number == reverseDigits(number: number)
+}
+
+let isPalindromeNumber = isPalindrome(number: number)
+
+print("\(number) is \(isPalindromeNumber ? "a Palindrome Number" : "not a Palindrome Number")")
